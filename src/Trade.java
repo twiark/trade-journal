@@ -1,5 +1,4 @@
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 /*
 * Represents a single futures trade, as one line of the trade log CSV.
 *
@@ -61,5 +60,29 @@ public class Trade {
 
     public int getQuantity() {
         return this.quantity;
+    }
+
+    public int getMultiplier() {
+        if (this.symbol.equals("MES")) {
+            return 5;
+        } else if (this.symbol.equals("ES")) {
+            return 50;
+        } else if (this.symbol.equals("NQ")) {
+            return 20;
+        } else if (this.symbol.equals("MNQ")) {
+            return 2;
+        } else {
+            return 0;
+        }
+    }
+
+    public double getPnl() {
+        if (this.direction.equals("SHORT")) {
+            return (this.entryVal - this.exitVal) * this.getMultiplier() * this.quantity;
+        } else if (this.direction.equals("LONG")) {
+            return (this.exitVal - this.entryVal) * this.getMultiplier() * this.quantity;
+        } else {
+            return 0.0;
+        }
     }
 }
