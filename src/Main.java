@@ -10,6 +10,9 @@ public class Main {
             if (trades.isEmpty()) {
                 IO.println("There are no trades in this file.");
             }
+            Metrics m = new Metrics(trades);
+            Report r = new Report(m);
+            r.getReport();
         } else {
             IO.println("No arguments in method call");
         }
